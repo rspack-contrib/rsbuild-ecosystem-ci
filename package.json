@@ -1,0 +1,64 @@
+{
+  "name": "rsbuild-ecosystem-ci",
+  "version": "0.0.1",
+  "description": "Rsbuild Ecosystem CI",
+  "scripts": {
+    "prepare": "pnpm exec simple-git-hooks",
+    "lint": "eslint --ignore-path .gitignore '**/*.ts'",
+    "lint:fix": "pnpm lint --fix",
+    "format": "prettier --ignore-path .gitignore --check .",
+    "format:fix": "pnpm format --write",
+    "test": "tsx ecosystem-ci.ts",
+    "bisect": "tsx ecosystem-ci.ts bisect"
+  },
+  "simple-git-hooks": {
+    "pre-commit": "pnpm exec lint-staged --concurrent false"
+  },
+  "lint-staged": {
+    "*": [
+      "prettier --write --ignore-unknown"
+    ],
+    "**/*.js": [
+      "eslint"
+    ]
+  },
+  "packageManager": "pnpm@7.32.0",
+  "type": "module",
+  "engines": {
+    "node": ">=18",
+    "pnpm": "7.32.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rspack-contrib/rsbuild-ecosystem-ci.git"
+  },
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/rspack-contrib/rsbuild-ecosystem-ci/issues"
+  },
+  "homepage": "https://github.com/rspack-contrib/rsbuild-ecosystem-ci#readme",
+  "dependencies": {
+    "@actions/cache": "^3.2.4",
+    "@actions/core": "^1.10.0",
+    "@manypkg/get-packages": "^2.2.2",
+    "cac": "^6.7.14",
+    "execa": "^7.1.1",
+    "node-fetch": "^3.3.1"
+  },
+  "devDependencies": {
+    "@antfu/ni": "^0.20.0",
+    "@types/node": "^18.15.5",
+    "@types/semver": "^7.3.13",
+    "@typescript-eslint/eslint-plugin": "^5.56.0",
+    "@typescript-eslint/parser": "^5.56.0",
+    "eslint": "^8.36.0",
+    "eslint-define-config": "^1.17.0",
+    "eslint-plugin-n": "^15.6.1",
+    "lint-staged": "^13.2.0",
+    "prettier": "^2.8.6",
+    "semver": "^7.3.8",
+    "simple-git-hooks": "^2.8.1",
+    "tsx": "^3.12.6",
+    "typescript": "^4.9.5"
+  }
+}
