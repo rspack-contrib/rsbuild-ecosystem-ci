@@ -88,8 +88,6 @@ jobs:
             os: ubuntu-latest
           - suite: rslib
             os: ubuntu-latest
-          - suite: rsbuild
-            os: ubuntu-latest
           - suite: examples
             os: ubuntu-latest
       fail-fast: false
