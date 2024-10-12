@@ -146,7 +146,7 @@ jobs:
 
             await github.rest.repos.createCommitComment({
               commit_sha: context.payload.inputs.commitSHA,
-              owner: context.repo.owner,
+              owner: 'web-infra-dev',
               repo: 'rsbuild',
               body
             })

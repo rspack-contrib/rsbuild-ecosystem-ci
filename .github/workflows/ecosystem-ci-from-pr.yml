@@ -67,7 +67,7 @@ jobs:
 
             const { data: comment } = await github.rest.issues.createComment({
               issue_number: context.payload.inputs.prNumber,
-              owner: context.repo.owner,
+              owner: 'web-infra-dev',
               repo: 'rsbuild',
               body: `⏳ Triggered ecosystem CI: ${urlLink}`
             })
@@ -172,7 +172,7 @@ jobs:
             `
 
             await github.rest.issues.updateComment({
-              owner: context.repo.owner,
+              owner: 'web-infra-dev',
               repo: 'rsbuild',
               comment_id: ${{ needs.create-comment.outputs.comment-id }},
               body
