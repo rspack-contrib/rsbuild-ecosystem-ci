@@ -9,12 +9,7 @@ on:
       - main
 
 jobs:
-  get-runner-labels:
-    name: Get Runner Labels
-    uses: ./.github/workflows/get-runner-labels.yml
-
   ci:
-    needs: [get-runner-labels]
     strategy:
       matrix:
         include:

@@ -57,11 +57,6 @@ on:
         default: "precoded"
 
 jobs:
-  get-runner-labels:
-    name: Get Runner Labels
-    needs: create-comment
-    uses: ./.github/workflows/get-runner-labels.yml
-
   execute-selected-suite:
     runs-on: ubuntu-latest
     if: "inputs.suite != '-'"
@@ -81,7 +76,6 @@ jobs:
           ${{ inputs.suite }}
 
   execute-all:
-    needs: [get-runner-labels]
     if: "inputs.suite == '-'"
     strategy:
       matrix:
