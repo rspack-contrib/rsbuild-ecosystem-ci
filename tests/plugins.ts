@@ -54,26 +54,36 @@ export async function test(options: RunOptions) {
 			console.warn(`not found package.json in ${pkgFolder}`)
 		}
 
-		return { hasTest: false }
+		return {
+			hasTest: false,
+		}
 	}
 
 	for (const repo of plugins) {
-		const { hasTest, playwright } = checkTest(repo)
-
-		if (!hasTest) {
-			console.warn(`not found test script in ${repo}`)
-		}
-
+		let hasTestScript = false
 		await runInRepo({
 			...options,
 			repo,
 			branch: 'main',
 			beforeTest: async () => {
+				const { hasTest, playwright } = checkTest(repo)
+
+				hasTestScript = hasTest
+
 				if (playwright) {
 					await $`pnpm exec playwright install --with-deps`
 				}
 			},
-			test: hasTest ? ['build', 'test'] : ['build'],
+			test: [
+				'build',
+				async () => {
+					if (hasTestScript) {
+						await $`pnpm run test`
+					} else {
+						console.warn(`not found test script in ${repo}`)
+					}
+				},
+			],
 		}).catch((err) => {
 			errors.push({
 				repo,
@@ -88,11 +98,11 @@ export async function test(options: RunOptions) {
 
 	if (errors.length) {
 		console.info(
-			`plugin test succeed ${plugins.length - errors.length}, failed ${
+			`plugins test succeed ${plugins.length - errors.length}, failed ${
 				errors.length
 			} (${errors.map((e) => e.repo).join(',')})`,
 		)
 	} else {
-		console.info('plugin test all passed!')
+		console.info('plugins test all passed!')
 	}
 }
