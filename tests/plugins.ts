@@ -40,7 +40,8 @@ export async function test(options: RunOptions) {
 
 	const checkTest = (repo: string) => {
 		const name = repo.split('/')[1]
-		const pkgPath = path.join(workspace, name, 'package.json')
+		const pkgFolder = path.join(workspace, name)
+		const pkgPath = path.join(pkgFolder, 'package.json')
 		if (fs.existsSync(pkgPath)) {
 			const pkgStr = fs.readFileSync(pkgPath, 'utf-8')
 			const { scripts } = JSON.parse(pkgStr)
@@ -49,13 +50,19 @@ export async function test(options: RunOptions) {
 				hasTest: Boolean(scripts.test),
 				playwright: Boolean(scripts.test?.includes('playwright')),
 			}
+		} else {
+			console.warn(`not found package.json in ${pkgFolder}`)
 		}
 
 		return { hasTest: false }
 	}
 
 	for (const repo of plugins) {
-		const { hasTest, playwright } = await checkTest(repo)
+		const { hasTest, playwright } = checkTest(repo)
+
+		if (!hasTest) {
+			console.warn(`not found test script in ${repo}`)
+		}
 
 		await runInRepo({
 			...options,
