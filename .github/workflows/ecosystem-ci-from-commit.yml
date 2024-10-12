@@ -71,7 +71,7 @@ jobs:
         include:
           - suite: modernjs
             os: ubuntu-latest
-					- suite: plugins
+          - suite: plugins
             os: ubuntu-latest
           - suite: rspress
             os: ubuntu-latest
