@@ -151,4 +151,4 @@ jobs:
               body
             })
 
-            return `https://github.com/web-infra-dev/rsbuild/commit/${context.payload.inputs.commitSHA}#comments`
+            console.log(`https://github.com/web-infra-dev/rsbuild/commit/${context.payload.inputs.commitSHA}#comments`)
