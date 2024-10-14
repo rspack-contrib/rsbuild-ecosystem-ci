@@ -69,14 +69,14 @@ jobs:
     strategy:
       matrix:
         include:
-          # - suite: modernjs
-          #   os: ubuntu-latest
+          - suite: modernjs
+            os: ubuntu-latest
           - suite: plugins
             os: ubuntu-latest
-          # - suite: rspress
-          #   os: ubuntu-latest
-          # - suite: rslib
-          #   os: ubuntu-latest
+          - suite: rspress
+            os: ubuntu-latest
+          - suite: rslib
+            os: ubuntu-latest
           - suite: examples
             os: ubuntu-latest
       fail-fast: false
@@ -151,5 +151,4 @@ jobs:
               body
             })
 
-            console.log(`https://github.com/web-infra-dev/rsbuild/commit/${context.payload.inputs.commitSHA}#comments`)
             return `https://github.com/web-infra-dev/rsbuild/commit/${context.payload.inputs.commitSHA}#comments`
