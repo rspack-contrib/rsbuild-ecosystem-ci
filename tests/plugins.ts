@@ -77,11 +77,11 @@ export async function test(options: RunOptions) {
 			test: [
 				'build',
 				async () => {
-					if (hasTestScript) {
-						await $`pnpm run test`
-					} else {
-						console.warn(`not found test script in ${repo}`)
-					}
+					// if (hasTestScript) {
+					await $`pnpm run test`
+					// } else {
+					// 	console.warn(`not found test script in ${repo}`)
+					// }
 				},
 			],
 		}).catch((err) => {
@@ -97,7 +97,7 @@ export async function test(options: RunOptions) {
 	})
 
 	if (errors.length) {
-		console.info(
+		throw new Error(
 			`plugins test succeed ${plugins.length - errors.length}, failed ${
 				errors.length
 			} (${errors.map((e) => e.repo).join(',')})`,
