@@ -77,11 +77,11 @@ export async function test(options: RunOptions) {
 			test: [
 				'build',
 				async () => {
-					// if (hasTestScript) {
-					await $`pnpm run test`
-					// } else {
-					// 	console.warn(`not found test script in ${repo}`)
-					// }
+					if (hasTestScript) {
+						await $`pnpm run test`
+					} else {
+						console.warn(`not found test script in ${repo}`)
+					}
 				},
 			],
 		}).catch((err) => {
