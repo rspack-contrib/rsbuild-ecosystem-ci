@@ -88,6 +88,11 @@ jobs:
     name: execute-all (${{ matrix.suite }})
     steps:
       - uses: actions/checkout@v4
+      - name: testing failure
+        run: |
+          sleep 25
+          echo "For testing failure"
+          exit 1
       - uses: moonrepo/setup-rust@v1
       - uses: ./.github/actions/build-rsbuild
         with:
