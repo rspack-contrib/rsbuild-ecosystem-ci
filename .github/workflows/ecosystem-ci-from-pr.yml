@@ -111,7 +111,6 @@ jobs:
     name: execute-all (${{ matrix.suite }})
     steps:
       - uses: actions/checkout@v4
-      - uses: moonrepo/setup-rust@v1
       - uses: ./.github/actions/build-rsbuild
         with:
           repository: ${{ inputs.repo }}
