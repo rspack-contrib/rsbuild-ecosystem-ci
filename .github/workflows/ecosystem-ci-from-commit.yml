@@ -132,6 +132,13 @@ jobs:
                 })
             }
 
+            const allSuccess = result.every(r => r.conclusion === 'success');
+
+            if (allSuccess) {
+              // only update commit when suite failed
+              return;
+            }
+
             const url = `${context.serverUrl}//${context.repo.owner}/${context.repo.repo}/actions/runs/${context.runId}`
             const urlLink = `[Open](${url})`
 
