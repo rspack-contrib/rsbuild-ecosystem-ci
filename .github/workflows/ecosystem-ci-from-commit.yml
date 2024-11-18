@@ -107,7 +107,7 @@ jobs:
     needs: [execute-selected-suite, execute-all]
     if: inputs.updateComment == true && always()
     steps:
-      - uses: actions/github-script@v6
+      - uses: actions/github-script@v7
         with:
           github-token: ${{ secrets.ECOSYSTEM_CI_ACCESS_TOKEN }}
           script: |
