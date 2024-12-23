@@ -59,7 +59,7 @@ jobs:
       - id: create-comment
         uses: actions/github-script@v6
         with:
-          github-token: ${{ secrets.ECOSYSTEM_CI_ACCESS_TOKEN }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
           result-encoding: string
           script: |
             const url = `${context.serverUrl}//${context.repo.owner}/${context.repo.repo}/actions/runs/${context.runId}`
@@ -130,7 +130,7 @@ jobs:
     steps:
       - uses: actions/github-script@v6
         with:
-          github-token: ${{ secrets.ECOSYSTEM_CI_ACCESS_TOKEN }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
           script: |
             const { data: { jobs } } = await github.rest.actions.listJobsForWorkflowRun({
               owner: context.repo.owner,
