@@ -22,7 +22,7 @@
       "eslint"
     ]
   },
-  "packageManager": "pnpm@7.32.0",
+  "packageManager": "pnpm@7.33.7",
   "type": "module",
   "engines": {
     "node": ">=18",
@@ -38,27 +38,27 @@
   },
   "homepage": "https://github.com/rspack-contrib/rsbuild-ecosystem-ci#readme",
   "dependencies": {
-    "@actions/cache": "^3.2.4",
-    "@actions/core": "^1.10.0",
+    "@actions/cache": "^3.3.0",
+    "@actions/core": "^1.11.1",
     "@manypkg/get-packages": "^2.2.2",
     "cac": "^6.7.14",
-    "execa": "^7.1.1",
-    "node-fetch": "^3.3.1"
+    "execa": "^7.2.0",
+    "node-fetch": "^3.3.2"
   },
   "devDependencies": {
-    "@antfu/ni": "^0.20.0",
-    "@types/node": "^18.15.5",
-    "@types/semver": "^7.3.13",
-    "@typescript-eslint/eslint-plugin": "^5.56.0",
-    "@typescript-eslint/parser": "^5.56.0",
-    "eslint": "^8.36.0",
-    "eslint-define-config": "^1.17.0",
-    "eslint-plugin-n": "^15.6.1",
-    "lint-staged": "^13.2.0",
-    "prettier": "^2.8.6",
-    "semver": "^7.3.8",
-    "simple-git-hooks": "^2.8.1",
-    "tsx": "^3.12.6",
+    "@antfu/ni": "^0.23.2",
+    "@types/node": "^18.19.69",
+    "@types/semver": "^7.5.8",
+    "@typescript-eslint/eslint-plugin": "^5.62.0",
+    "@typescript-eslint/parser": "^5.62.0",
+    "eslint": "^8.57.1",
+    "eslint-define-config": "^1.24.1",
+    "eslint-plugin-n": "^15.7.0",
+    "lint-staged": "^13.3.0",
+    "prettier": "^2.8.8",
+    "semver": "^7.6.3",
+    "simple-git-hooks": "^2.11.1",
+    "tsx": "^3.14.0",
     "typescript": "^4.9.5"
   }
 }
