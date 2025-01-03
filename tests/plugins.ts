@@ -74,6 +74,10 @@ export async function test(options: RunOptions) {
 					await $`pnpm exec playwright install --with-deps`
 				}
 			},
+			overrides: {
+				// not override rslib's rsbuild version
+				'@rslib/core>@rsbuild/core': 'latest',
+			},
 			test: [
 				'build',
 				async () => {

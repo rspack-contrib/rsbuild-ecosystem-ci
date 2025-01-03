@@ -400,9 +400,14 @@ async function applyPackageOverrides(
 	// remove boolean flags
 	overrides = Object.fromEntries(
 		Object.entries(overrides)
-			//eslint-disable-next-line @typescript-eslint/no-unused-vars
-			.filter(([key, value]) => typeof value === 'string')
+			.filter(([_key, value]) => typeof value === 'string')
 			.map(([key, value]) => [key, useFileProtocol(value as string)]),
+	)
+
+	const localOverrides = Object.fromEntries(
+		Object.entries(overrides).filter(([_key, value]) =>
+			value.startsWith('file:'),
+		),
 	)
 	await $`git clean -fdxq` // remove current install
 
@@ -421,7 +426,7 @@ async function applyPackageOverrides(
 		}
 		pkg.devDependencies = {
 			...pkg.devDependencies,
-			...overrides, // overrides must be present in devDependencies or dependencies otherwise they may not work
+			...localOverrides, // overrides must be present in devDependencies or dependencies otherwise they may not work
 		}
 		if (!pkg.pnpm) {
 			pkg.pnpm = {}
@@ -436,7 +441,7 @@ async function applyPackageOverrides(
 		}
 		pkg.devDependencies = {
 			...pkg.devDependencies,
-			...overrides, // overrides must be present in devDependencies or dependencies otherwise they may not work
+			...localOverrides, // overrides must be present in devDependencies or dependencies otherwise they may not work
 		}
 		pkg.resolutions = {
 			...pkg.resolutions,
