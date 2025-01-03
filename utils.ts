@@ -215,6 +215,7 @@ export async function runInRepo(options: RunOptions & RepoOptions) {
 		afterInstall,
 		beforeBuild,
 		beforeTest,
+		forceOverride,
 	} = options
 
 	const dir = path.resolve(
@@ -288,7 +289,13 @@ export async function runInRepo(options: RunOptions & RepoOptions) {
 			overrides[pkg.name] ||= pkg.directory
 		}
 	}
-	await applyPackageOverrides(dir, pkg, overrides, beforeInstallCommand)
+	await applyPackageOverrides(
+		dir,
+		pkg,
+		overrides,
+		beforeInstallCommand,
+		forceOverride,
+	)
 	await afterInstallCommand?.(pkg.scripts)
 	await beforeBuildCommand?.(pkg.scripts)
 	await buildCommand?.(pkg.scripts)
@@ -394,6 +401,7 @@ async function applyPackageOverrides(
 	pkg: any,
 	overrides: Overrides = {},
 	beforeInstallCommand: ((scripts: any) => Promise<any>) | void,
+	forceOverride = true,
 ) {
 	const useFileProtocol = (v: string) =>
 		isLocalOverride(v) ? `file:${path.resolve(v)}` : v
@@ -426,9 +434,12 @@ async function applyPackageOverrides(
 		if (!pkg.pnpm) {
 			pkg.pnpm = {}
 		}
-		pkg.pnpm.overrides = {
-			...pkg.pnpm.overrides,
-			...overrides,
+
+		if (forceOverride) {
+			pkg.pnpm.overrides = {
+				...pkg.pnpm.overrides,
+				...overrides,
+			}
 		}
 	} else if (pm === 'yarn') {
 		if (!pkg.devDependencies) {
@@ -438,14 +449,19 @@ async function applyPackageOverrides(
 			...pkg.devDependencies,
 			...overrides, // overrides must be present in devDependencies or dependencies otherwise they may not work
 		}
-		pkg.resolutions = {
-			...pkg.resolutions,
-			...overrides,
+
+		if (forceOverride) {
+			pkg.resolutions = {
+				...pkg.resolutions,
+				...overrides,
+			}
 		}
 	} else if (pm === 'npm') {
-		pkg.overrides = {
-			...pkg.overrides,
-			...overrides,
+		if (forceOverride) {
+			pkg.overrides = {
+				...pkg.overrides,
+				...overrides,
+			}
 		}
 		// npm does not allow overriding direct dependencies, force it by updating the blocks themselves
 		for (const [name, version] of Object.entries(overrides)) {

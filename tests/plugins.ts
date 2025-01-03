@@ -63,6 +63,8 @@ export async function test(options: RunOptions) {
 		let hasTestScript = false
 		await runInRepo({
 			...options,
+			// Only update the rsbuild version of direct dependencies, not indirect dependencies (such as the rsbuild version of rslib).
+			forceOverride: false,
 			repo,
 			branch: 'main',
 			beforeTest: async () => {

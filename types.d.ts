@@ -51,6 +51,8 @@ export interface RepoOptions {
 	commit?: string
 	shallow?: boolean
 	overrides?: Overrides
+	// Whether to update all dependency versions through overrides instead of only updating those within the current project devDeps and deps
+	forceOverride?: boolean
 }
 
 export interface Overrides {
