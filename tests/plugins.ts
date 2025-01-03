@@ -63,8 +63,6 @@ export async function test(options: RunOptions) {
 		let hasTestScript = false
 		await runInRepo({
 			...options,
-			// Only update the rsbuild version of direct dependencies, not indirect dependencies (such as the rsbuild version of rslib).
-			forceOverride: false,
 			repo,
 			branch: 'main',
 			beforeTest: async () => {
@@ -75,6 +73,9 @@ export async function test(options: RunOptions) {
 				if (playwright) {
 					await $`pnpm exec playwright install --with-deps`
 				}
+			},
+			overrides: {
+				'@rslib/core>@rsbuild/core': 'latest',
 			},
 			test: [
 				'build',
