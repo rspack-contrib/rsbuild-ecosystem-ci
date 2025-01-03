@@ -75,6 +75,7 @@ export async function test(options: RunOptions) {
 				}
 			},
 			overrides: {
+				// not override rslib's rsbuild version
 				'@rslib/core>@rsbuild/core': 'latest',
 			},
 			test: [
