@@ -435,6 +435,15 @@ async function applyPackageOverrides(
 			...pkg.pnpm.overrides,
 			...overrides,
 		}
+
+		if (pkg.packageManager?.includes('pnpm@10')) {
+			// Temporary fix: peerDependencies validation error when using pnpm.overrides
+			// https://github.com/pnpm/pnpm/issues/8978
+			pkg.packageManager = 'pnpm@9.12.1'
+			if (pkg.engines?.pnpm) {
+				pkg.engines.pnpm = '>=9.0.0'
+			}
+		}
 	} else if (pm === 'yarn') {
 		if (!pkg.devDependencies) {
 			pkg.devDependencies = {}
