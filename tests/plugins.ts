@@ -44,11 +44,15 @@ export async function test(options: RunOptions) {
 		const pkgPath = path.join(pkgFolder, 'package.json')
 		if (fs.existsSync(pkgPath)) {
 			const pkgStr = fs.readFileSync(pkgPath, 'utf-8')
-			const { scripts } = JSON.parse(pkgStr)
+			const { scripts, devDependencies } = JSON.parse(pkgStr)
+
+			const hasPlaywright =
+				Boolean(devDependencies['playwright']) ||
+				Boolean(scripts.test?.includes('playwright'))
 
 			return {
 				hasTest: Boolean(scripts.test),
-				playwright: Boolean(scripts.test?.includes('playwright')),
+				playwright: hasPlaywright,
 			}
 		} else {
 			console.warn(`not found package.json in ${pkgFolder}`)
