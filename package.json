@@ -22,11 +22,11 @@
       "eslint"
     ]
   },
-  "packageManager": "pnpm@7.32.0",
+  "packageManager": "pnpm@10.1.0",
   "type": "module",
   "engines": {
     "node": ">=18",
-    "pnpm": "7.32.0"
+    "pnpm": "10.1.0"
   },
   "repository": {
     "type": "git",
