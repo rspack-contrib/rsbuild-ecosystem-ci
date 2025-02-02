@@ -4,10 +4,7 @@
   "description": "Rsbuild Ecosystem CI",
   "scripts": {
     "prepare": "pnpm exec simple-git-hooks",
-    "lint": "eslint --ignore-path .gitignore '**/*.ts'",
-    "lint:fix": "pnpm lint --fix",
-    "format": "prettier --ignore-path .gitignore --check .",
-    "format:fix": "pnpm format --write",
+    "lint": "biome check .",
     "test": "tsx ecosystem-ci.ts",
     "bisect": "tsx ecosystem-ci.ts bisect"
   },
@@ -15,12 +12,7 @@
     "pre-commit": "pnpm exec lint-staged --concurrent false"
   },
   "lint-staged": {
-    "*": [
-      "prettier --write --ignore-unknown"
-    ],
-    "**/*.js": [
-      "eslint"
-    ]
+    "*": ["biome check . --write"]
   },
   "packageManager": "pnpm@10.1.0",
   "type": "module",
@@ -47,15 +39,10 @@
   },
   "devDependencies": {
     "@antfu/ni": "^0.20.0",
+    "@biomejs/biome": "^1.9.4",
     "@types/node": "^18.15.5",
     "@types/semver": "^7.3.13",
-    "@typescript-eslint/eslint-plugin": "^5.56.0",
-    "@typescript-eslint/parser": "^5.56.0",
-    "eslint": "^8.36.0",
-    "eslint-define-config": "^1.17.0",
-    "eslint-plugin-n": "^15.6.1",
     "lint-staged": "^13.2.0",
-    "prettier": "^2.8.6",
     "semver": "^7.3.8",
     "simple-git-hooks": "^2.8.1",
     "tsx": "^3.12.6",
