@@ -16,20 +16,19 @@ inputs:
   node-version:
     description: 'The version of Node.js to set up'
     required: true
-    default: '18'
+    default: '22'
 outputs:
   artifact-name:
     description: 'The name of the uploaded artifact'
 runs:
   using: composite
   steps:
-    - uses: actions/setup-node@v3
+    - uses: actions/setup-node@v4
       with:
-        node-version: 18
+        node-version: 22
     - shell: bash
       name: Install package manager
       run: |
-        npm install -g corepack@0.24.1
         echo "Corepack version: $(corepack --version)"
         corepack enable
 
@@ -44,4 +43,3 @@ runs:
       run: |
         cd ${{ inputs.path }}
         pnpm i
-        pnpm run build
