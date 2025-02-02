@@ -2,33 +2,28 @@
   "name": "rsbuild-ecosystem-ci",
   "version": "0.0.1",
   "description": "Rsbuild Ecosystem CI",
-  "scripts": {
-    "prepare": "pnpm exec simple-git-hooks",
-    "lint": "biome check .",
-    "test": "tsx ecosystem-ci.ts",
-    "bisect": "tsx ecosystem-ci.ts bisect"
-  },
-  "simple-git-hooks": {
-    "pre-commit": "pnpm exec lint-staged --concurrent false"
-  },
-  "lint-staged": {
-    "*": ["biome check . --write"]
-  },
-  "packageManager": "pnpm@10.1.0",
-  "type": "module",
-  "engines": {
-    "node": ">=18",
-    "pnpm": "10.1.0"
+  "homepage": "https://github.com/rspack-contrib/rsbuild-ecosystem-ci#readme",
+  "bugs": {
+    "url": "https://github.com/rspack-contrib/rsbuild-ecosystem-ci/issues"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/rspack-contrib/rsbuild-ecosystem-ci.git"
   },
   "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/rspack-contrib/rsbuild-ecosystem-ci/issues"
+  "type": "module",
+  "scripts": {
+    "bisect": "tsx ecosystem-ci.ts bisect",
+    "lint": "biome check .",
+    "prepare": "pnpm exec simple-git-hooks",
+    "test": "tsx ecosystem-ci.ts"
   },
-  "homepage": "https://github.com/rspack-contrib/rsbuild-ecosystem-ci#readme",
+  "simple-git-hooks": {
+    "pre-commit": "pnpm exec nano-staged"
+  },
+  "nano-staged": {
+    "*": ["biome check . --write"]
+  },
   "dependencies": {
     "@actions/cache": "^3.2.4",
     "@actions/core": "^1.10.0",
@@ -42,10 +37,15 @@
     "@biomejs/biome": "^1.9.4",
     "@types/node": "^18.15.5",
     "@types/semver": "^7.3.13",
-    "lint-staged": "^13.2.0",
+    "nano-staged": "^0.8.0",
     "semver": "^7.3.8",
     "simple-git-hooks": "^2.8.1",
     "tsx": "^3.12.6",
     "typescript": "^4.9.5"
+  },
+  "packageManager": "pnpm@10.0.0",
+  "engines": {
+    "node": ">=18",
+    "pnpm": "10.0.0"
   }
 }
