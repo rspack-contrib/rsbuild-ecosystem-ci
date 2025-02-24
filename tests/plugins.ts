@@ -34,6 +34,7 @@ export async function test(options: RunOptions) {
     'rspack-contrib/rsbuild-plugin-check-syntax',
     'rspack-contrib/rsbuild-plugin-basic-ssl',
     'rspack-contrib/rsbuild-plugin-vue-jsx',
+    'rspack-contrib/rsbuild-plugin-assets-retry',
   ];
 
   const { workspace } = options;
