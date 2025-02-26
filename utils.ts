@@ -294,10 +294,10 @@ export async function runInRepo(options: RunOptions & RepoOptions) {
       overrides[pkg.name] ||= pkg.directory;
     }
   }
-  // await applyPackageOverrides(dir, pkg, beforeInstallCommand, overrides);
-  // await afterInstallCommand?.(pkg.scripts);
-  // await beforeBuildCommand?.(pkg.scripts);
-  // await buildCommand?.(pkg.scripts);
+  await applyPackageOverrides(dir, pkg, beforeInstallCommand, overrides);
+  await afterInstallCommand?.(pkg.scripts);
+  await beforeBuildCommand?.(pkg.scripts);
+  await buildCommand?.(pkg.scripts);
   if (test) {
     await beforeTestCommand?.(pkg.scripts);
     await testCommand?.(pkg.scripts);
