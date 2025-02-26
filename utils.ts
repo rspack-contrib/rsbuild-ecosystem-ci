@@ -42,11 +42,17 @@ export async function $(literals: TemplateStringsArray, ...values: unknown[]) {
     env,
     stdio: 'pipe',
     cwd,
+    reject: false,
   });
   proc.stdin?.pipe(process.stdin);
   proc.stdout?.pipe(process.stdout);
   proc.stderr?.pipe(process.stderr);
   const result = await proc;
+
+  if (result.failed) {
+    // simplify the error output of execa
+    throw new Error(result.shortMessage || result.message);
+  }
 
   if (isGitHubActions) {
     actionsCore.endGroup();
