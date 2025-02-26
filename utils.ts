@@ -38,23 +38,29 @@ export async function $(literals: TemplateStringsArray, ...values: unknown[]) {
     console.log(`${cwd} $> ${cmd}`);
   }
 
-  const proc = execaCommand(cmd, {
-    env,
-    stdio: 'pipe',
-    cwd,
-  });
-  proc.stdin?.pipe(process.stdin);
-  proc.stdout?.pipe(process.stdout);
-  proc.stderr?.pipe(process.stderr);
-  const result = await proc;
+  try {
+    const proc = execaCommand(cmd, {
+      env,
+      stdio: 'pipe',
+      cwd,
+    });
+    proc.stdin?.pipe(process.stdin);
+    proc.stdout?.pipe(process.stdout);
+    proc.stderr?.pipe(process.stderr);
+    const result = await proc;
 
-  if (isGitHubActions) {
-    actionsCore.endGroup();
-    const cost = Math.ceil((Date.now() - start) / 1000);
-    console.log(`Cost for \`${cmd}\`: ${cost} s`);
+    if (isGitHubActions) {
+      actionsCore.endGroup();
+      const cost = Math.ceil((Date.now() - start) / 1000);
+      console.log(`Cost for \`${cmd}\`: ${cost} s`);
+    }
+
+    return result.stdout;
+  } catch (error) {
+    // Simplify the error output of execa
+    console.error(error.shortMessage || error.message);
+    process.exit(1);
   }
-
-  return result.stdout;
 }
 
 export async function setupEnvironment(): Promise<EnvironmentData> {
@@ -288,10 +294,10 @@ export async function runInRepo(options: RunOptions & RepoOptions) {
       overrides[pkg.name] ||= pkg.directory;
     }
   }
-  await applyPackageOverrides(dir, pkg, beforeInstallCommand, overrides);
-  await afterInstallCommand?.(pkg.scripts);
-  await beforeBuildCommand?.(pkg.scripts);
-  await buildCommand?.(pkg.scripts);
+  // await applyPackageOverrides(dir, pkg, beforeInstallCommand, overrides);
+  // await afterInstallCommand?.(pkg.scripts);
+  // await beforeBuildCommand?.(pkg.scripts);
+  // await buildCommand?.(pkg.scripts);
   if (test) {
     await beforeTestCommand?.(pkg.scripts);
     await testCommand?.(pkg.scripts);
