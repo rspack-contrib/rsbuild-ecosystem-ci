@@ -38,29 +38,29 @@ export async function $(literals: TemplateStringsArray, ...values: unknown[]) {
     console.log(`${cwd} $> ${cmd}`);
   }
 
-  try {
-    const proc = execaCommand(cmd, {
-      env,
-      stdio: 'pipe',
-      cwd,
-    });
-    proc.stdin?.pipe(process.stdin);
-    proc.stdout?.pipe(process.stdout);
-    proc.stderr?.pipe(process.stderr);
-    const result = await proc;
+  const proc = execaCommand(cmd, {
+    env,
+    stdio: 'pipe',
+    cwd,
+    reject: false,
+  });
+  proc.stdin?.pipe(process.stdin);
+  proc.stdout?.pipe(process.stdout);
+  proc.stderr?.pipe(process.stderr);
+  const result = await proc;
 
-    if (isGitHubActions) {
-      actionsCore.endGroup();
-      const cost = Math.ceil((Date.now() - start) / 1000);
-      console.log(`Cost for \`${cmd}\`: ${cost} s`);
-    }
-
-    return result.stdout;
-  } catch (error) {
-    // Simplify the error output of execa
-    console.error(error.shortMessage || error.message);
-    process.exit(1);
+  if (result.failed) {
+    // simplify the error output of execa
+    throw new Error(result.shortMessage || result.message);
   }
+
+  if (isGitHubActions) {
+    actionsCore.endGroup();
+    const cost = Math.ceil((Date.now() - start) / 1000);
+    console.log(`Cost for \`${cmd}\`: ${cost} s`);
+  }
+
+  return result.stdout;
 }
 
 export async function setupEnvironment(): Promise<EnvironmentData> {
