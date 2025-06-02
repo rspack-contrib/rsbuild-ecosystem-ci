@@ -33,7 +33,7 @@
     "node-fetch": "^3.3.1"
   },
   "devDependencies": {
-    "@antfu/ni": "^0.20.0",
+    "@antfu/ni": "^25.0.0",
     "@biomejs/biome": "^1.9.4",
     "@types/node": "^18.15.5",
     "@types/semver": "^7.3.13",
