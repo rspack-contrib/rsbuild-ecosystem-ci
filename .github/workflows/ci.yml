@@ -13,15 +13,17 @@ jobs:
     strategy:
       matrix:
         include:
-          - suite: modernjs
+          - suite: rslib
             os: ubuntu-latest
-          - suite: plugins
+          - suite: rstest
             os: ubuntu-latest
           - suite: rspress
             os: ubuntu-latest
-          - suite: examples
+          - suite: plugins
             os: ubuntu-latest
-          - suite: rslib
+          - suite: modernjs
+            os: ubuntu-latest
+          - suite: examples
             os: ubuntu-latest
       fail-fast: false
     runs-on: ${{ matrix.os }}

@@ -27,7 +27,7 @@ on:
           - modernjs
           - plugins
           - rspress
-          - rslib
+          - 
           - examples
       suiteRefType:
         description: "type of suite ref to use"
@@ -80,7 +80,7 @@ jobs:
             os: ubuntu-latest
           - suite: rspress
             os: ubuntu-latest
-          - suite: rslib
+          - suite: 
             os: ubuntu-latest
           - suite: examples
             os: ubuntu-latest
