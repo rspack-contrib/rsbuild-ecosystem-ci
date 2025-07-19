@@ -38,6 +38,7 @@ on:
           - rslib
           - rstest
           - rspress
+          - rspeedy
           - plugins
           - modernjs
           - examples
@@ -86,6 +87,8 @@ jobs:
           - suite: rstest
             os: ubuntu-latest
           - suite: rspress
+            os: ubuntu-latest
+          - suite: rspeedy
             os: ubuntu-latest
           - suite: plugins
             os: ubuntu-latest
