@@ -35,10 +35,11 @@ on:
         type: choice
         options:
           - "-"
-          - modernjs
-          - plugins
-          - rspress
           - rslib
+          - rstest
+          - rspress
+          - plugins
+          - modernjs
           - examples
       suiteRefType:
         description: "type of suite ref to use"
@@ -80,13 +81,15 @@ jobs:
     strategy:
       matrix:
         include:
-          - suite: modernjs
+          - suite: rslib
             os: ubuntu-latest
-          - suite: plugins
+          - suite: rstest
             os: ubuntu-latest
           - suite: rspress
             os: ubuntu-latest
-          - suite: rslib
+          - suite: plugins
+            os: ubuntu-latest
+          - suite: modernjs
             os: ubuntu-latest
           - suite: examples
             os: ubuntu-latest
