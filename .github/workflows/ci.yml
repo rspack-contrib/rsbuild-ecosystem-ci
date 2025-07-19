@@ -19,6 +19,8 @@ jobs:
             os: ubuntu-latest
           - suite: rspress
             os: ubuntu-latest
+          - suite: rspeedy
+            os: ubuntu-latest
           - suite: plugins
             os: ubuntu-latest
           - suite: modernjs
