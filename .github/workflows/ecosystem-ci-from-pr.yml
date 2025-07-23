@@ -74,13 +74,15 @@ jobs:
     strategy:
       matrix:
         include:
-          - suite: modernjs
+          - suite: rslib
             os: ubuntu-latest
-          - suite: plugins
+          - suite: rstest
             os: ubuntu-latest
           - suite: rspress
             os: ubuntu-latest
-          - suite: 
+          - suite: plugins
+            os: ubuntu-latest
+          - suite: modernjs
             os: ubuntu-latest
           - suite: examples
             os: ubuntu-latest
