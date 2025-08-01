@@ -1,7 +1,7 @@
 import { join } from 'node:path';
 import cache from '@actions/cache';
 import type { RunOptions } from '../types';
-import { $, runInRepo } from '../utils';
+import { $, cd, runInRepo } from '../utils';
 
 const isGitHubActions = !!process.env.GITHUB_ACTIONS;
 
@@ -42,12 +42,11 @@ export async function test(options: RunOptions) {
         await cache.saveCache([nxCachePath], nxCacheKey);
       }
     },
-    // When using GitHub machines, installation is not necessary
-    // beforeTest: async () => {
-    // 	cd('tests/e2e/builder')
-    // 	await $`pnpm playwright install --with-deps chromium`
-    // 	cd('../../../')
-    // },
+    beforeTest: async () => {
+      cd('tests/e2e/builder');
+      await $`pnpm playwright install --with-deps chromium`;
+      cd('../../../');
+    },
     test: ['test:rspack'],
   });
 }
